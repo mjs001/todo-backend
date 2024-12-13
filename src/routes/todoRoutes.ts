@@ -24,6 +24,26 @@ router.get('/', async (_req: Request, res: Response) => {
   }
 });
 
+router.get('/:id', async (_req: Request<{ id: string }>, res: Response) => {
+  const {id} = _req.params;
+
+  try {
+    const task = await prisma.task.findUnique({
+      where: {
+        id: parseInt(id),
+      },
+    })
+    if (task === null){
+      res.status(404).json({ error: `Task with the id of ${id} was not found.` });
+    }else{
+      res.json(task);
+    }
+
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to retrieve task. ' + error });
+  }
+});
+
 router.post('/', async (req: Request<{}, {}, NewTaskBody>, res: Response) => {
   const { title, color } = req.body;
 
@@ -47,7 +67,7 @@ router.put('/:id', async (req: Request<{ id: string }, {}, EditTaskBody>, res: R
 
   try {
     const updatedTask = await prisma.task.update({
-      where: { id: parseInt(id, 10) },
+      where: { id: parseInt(id) },
       data: { title, color, completed },
     });
     res.json(updatedTask);
@@ -60,7 +80,7 @@ router.delete('/:id', async (req: Request<{ id: string }>, res: Response) => {
   const { id } = req.params;
 
   try {
-    await prisma.task.delete({ where: { id: parseInt(id, 10) } });
+    await prisma.task.delete({ where: { id: parseInt(id) } });
     res.json({ message: 'Task deleted successfully' });
   } catch (error) {
     res.status(500).json({ error: 'Failed to delete task.' + error });
