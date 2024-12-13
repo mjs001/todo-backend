@@ -15,8 +15,7 @@ Links to download Node and mySQL:
 
 1. First you will need to clone this repo. `git clone https://github.com/mjs001/todo-backend.git`.
 2. Next `cd` into the directory.
-3. Next `cd` into `todo-backend`.
-4. Run `npm i`.
+3. Run `npm i`.
 
 ### You will now need to create a mySQL database called “todo_list_app” for the initialization of this project
 
