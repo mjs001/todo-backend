@@ -1,6 +1,6 @@
 # todo-backend
 
-Backend for a todo list app made with Express, mySQL and Prisma.
+[frontend](https://github.com/mjs001/todo-frontend)
 
 ## Steps for setting up this repo
 
